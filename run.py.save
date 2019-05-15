@@ -1,0 +1,70 @@
+from flask import Flask, render_template, request, flash # flash #, url_for, redirect,
+from wtforms import Form, SubmitField, TextAreaField, validators
+import random, json
+
+app = Flask(__name__)
+app.secret_key = 'super secret key'
+app.config['SESSION_TYPE'] = 'filesystem'
+
+class input_sentent_Form(Form):
+    sentence_input = TextAreaField('input', [validators.Length(min=1, max=100)])
+    submit = SubmitField('문장 제출')
+
+def get_sentence():      # 문장 가져오기
+    with open("static/sentences.json") as config_file:
+        verb_list = ["have", "get", "go", "turn", "take", "last", "clean", "fight", "give", "discuss"]
+        n = len(verb_list)
+        n = random.randint(0,n-1)
+        sentences = json.load(config_file)
+        return sentences[verb_list[n]]
+
+def disorder_sentence(sen1):
+    sentence = sen1
+    sentence_words = sentence.split(' ')
+    n = len(sentence_words)
+    new_sentence = []
+    while n > 0:
+        number = random.randint(0, n - 1)
+        new_sentence.append(sentence_words[number])
+        sentence_words.pop(number)
+        n = len(sentence_words)
+    return new_sentence
+
+answer = []
+
+@app.route("/")
+@app.route("/home", methods=["GET", "POST"])
+def home():
+    form = input_sentent_Form(request.form)
+    sen1 = get_sentence()                                                         # answer 이 없는 경우 Home 호출 -> sen1 -> 문장 1번 -> html
+    answer.append(sen1)                                                           # Get 으로 home 한번 더 호출 -> sen1 = 문장 2번
+    rd_sen = disorder_sentence(sen1)                                              # 사용자는 문장 1번을 입력하여 결국 기존 짠 코드인 if sen1(문장 2번) == sentence_in(문장 1번): 은 참이 될수 없는 구조
+    n = len(rd_sen)
+
+    test.append("1")
+    if request.method == "POST" and form.validate():
+        sentence_in = form.sentence_input.data
+        if answer[0] == sentence_in:
+            flash(answer)
+            flash(sentence_in)
+            flash(test)	
+            flash('Okay')
+            #answer.pop(0)
+            return render_template('home.html', form=form, rd_sen=rd_sen, n=n)
+        else:
+            flash(answer)
+            flash(sentence_in)
+            #answer.pop(0)
+            flash(test)
+            flash('Wrong')
+            return render_template('home.html', form=form, rd_sen=rd_sen, n=n)
+    else:
+        flash('Hello')
+        if len(answer) >= 2:
+            answer.pop(0)
+        return render_template('home.html', form=form, rd_sen=rd_sen, n=n)
+
+
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0', port=5001)
+

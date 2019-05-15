@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block content %}
+        <article class="media content-section">
+            <div class="media-body">
+                <div class="article-metadata">
+                    <a class="mr-2" href="#">Welcome
+                    <span class="badge badge-pill badge-light">How are you doing?</span>
+                    </a> <!-- mr = margin right 2 -->
+                    <small class="text-muted">Home</small>
+                </div>
+                <h4><a class="article-title" href="#">1. 단어 순서 맞추기</a></h4>
+                <p></p>
+                <p></p>
+                <h4><a class="article-title" href="#">2. 단어 설명</a></h4>
+                <p class="article-content"></p>
+                <h5><a class="article-title" href="/study">Click</a></h5>
+            </div>
+        </article>
+            <article class="media content-section1">
+            <div class="media-body">
+                <div class="article-metadata">
+                    <a class="mr-2">Choose a verb from the list below</a>
+                    <span class="badge badge-pill badge-light"></span>
+                    <small class="text-muted"></small>  <!-- # 연월일 만 display -->
+                </div>
+                {% for i in range(n) %}
+                <form action="{{ url_for('study', verb=verbs[i] ) }}" method="post">
+                <a class="badge badge-pill badge-light" href="/study/{{ verbs[i] }}">[  {{ verbs[i] }}  ]</a>
+                </form>
+                {% endfor %}
+                <p class="article-content"></p>
+            </div>
+        </article>
+
+{% endblock content %}

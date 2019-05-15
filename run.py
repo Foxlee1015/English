@@ -1,0 +1,86 @@
+from flask import Flask, render_template, request, flash, url_for, redirect
+from wtforms import Form, SubmitField, TextAreaField, validators
+import random, json
+
+app = Flask(__name__)
+app.secret_key = 'super secret key'
+app.config['SESSION_TYPE'] = 'filesystem'
+
+class input_sentent_Form(Form):
+    sentence_input = TextAreaField('input', [validators.Length(min=1, max=100)])
+    submit = SubmitField('문장 제출')
+
+def get_verbs():
+    with open("static/sentences.json", encoding='UTF8') as config_file:
+        data = json.load(config_file)
+        verbs = [key for key in data["Sentences"]]
+        return verbs
+
+def get_sentence(verb):      # 문장 가져오기
+    with open("static/sentences.json", encoding='UTF8') as config_file:
+        data = json.load(config_file)
+        return data["Sentences"][verb], data["Explanation"][verb]
+
+def disorder_sentence(sen1):
+    sentence = sen1
+    sentence_words = sentence.split(' ')
+    n = len(sentence_words)
+    new_sentence = []
+    while n > 0:
+        number = random.randint(0, n - 1)
+        new_sentence.append(sentence_words[number])
+        sentence_words.pop(number)
+        n = len(sentence_words)
+    return new_sentence
+
+@app.route("/")
+@app.route("/home", methods=["GET", "POST"])
+def home():
+    verbs = get_verbs()
+    n = len(verbs)
+    return render_template('home.html')
+
+def get_data(verb):
+    sen1, exp1 = get_sentence(verb)
+    rd_sen = disorder_sentence(sen1)
+    r_n = len(rd_sen)
+    return sen1, exp1, rd_sen, r_n
+
+def get_random_verb():
+    verbs = get_verbs()
+    n = len(verbs)
+    r_n = random.randint(0,n-1)
+    verb = verbs[r_n]
+    return verb
+
+@app.route("/study")
+def study_random():
+    verb = get_random_verb()
+    form = input_sentent_Form(request.form)
+    sen1, exp1, rd_sen, r_n = get_data(verb)
+    return render_template('study.html', form=form, rd_sen=rd_sen, r_n=r_n, exp1=exp1, verb=verb)
+
+@app.route("/study/<string:verb>", methods=["GET", "POST"])
+def study(verb):
+    form = input_sentent_Form(request.form)
+    sen1, exp1, rd_sen, r_n = get_data(verb)
+    if request.method == "POST" and form.validate():
+        sentence_in = form.sentence_input.data
+        if sen1 == sentence_in:
+            flash('Correct')
+            return redirect(url_for('home'))
+        else:
+            flash('Wrong')
+            return render_template('study.html', form=form, rd_sen=rd_sen, r_n=r_n, exp1=exp1, verb=verb)
+    else:
+        return render_template('study.html', form=form, rd_sen=rd_sen, r_n=r_n, exp1=exp1, verb=verb)
+
+@app.context_processor
+def context_processor():
+    verbs = get_verbs()
+    n = len(verbs)
+    return dict(verbs=verbs, n=n)
+
+if __name__ == '__main__':
+    app.run(debug=True) # , host='0.0.0.0', port=5001
+

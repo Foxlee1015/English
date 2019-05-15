@@ -1,0 +1,45 @@
+{
+	"Sentences" : {
+		"have": "I have a phone.",
+		"get": "I am getting angry.",
+		"go": "I will go home in 2 hours.",
+		"turn": "It turns out that he loves her.",
+		"take": "It took ages to finish the work.",
+		"last": "It didn't last long.",
+		"clean": "I was going to clean the table.",
+		"fight": "Don't pick a fight with strangers.",
+		"give": "Do you want to give up.",
+		"discuss": "We have to discuss the matter.",
+		"ask": "Do you want to ask him something?",
+		"feel": "I don't feel good.",
+		"hear": "Can you hear me?",
+		"keep": "He kept doing that.",
+		"leave": "Dont leave her alone.",
+		"work": "Are you working this Friday?",
+		"look": "It doesn't look great.",
+		"seem": "He seems angry.",
+		"sound": "That sounds like me."
+	},
+	"Explanation" : {
+		"have": "have 란",
+		"get": "get 의 다양한 용법",
+		"go": "go to home 아닌 go home 인 이유",
+		"turn": "원어민이 많이 쓰는 표현 truns out, 상황과 함께 알기",
+		"take": "take의 다양한 의미",
+		"last": "부사,형용사 그리고 동사",
+		"clean": "clean 의 동의어.",
+		"fight": "fight, argue, debate, dicuss, quarrel",
+		"give": "give + 전치사.",
+		"discuss": "전치사가 필요없는 동사들은 뭐가 있을까요?",
+		"ask": "ask의 구조",
+		"feel": "지각동사의 종류와 많이 쓰이는 형태",
+		"hear": "지각동사!",
+		"keep": "keep 뒤의 형용사, 분사",
+		"leave": "구조 및 전치사 활용",
+		"work": "work 명사 - 왜 관사가 필요 없나요?",
+		"look": "많이 쓰이는 형용사도 함께 기억하세요.",
+		"seem": "구조!",
+		"sound": "sound 뒤의 구조"
+	}
+}
+
