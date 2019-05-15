@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-	<form action="{{ url_for('study', verb=verb ) }}" method="post">
+	<form action="{{ url_for('study', verb=verb ) }}" method="post">           <!-- submit 되면 study/동사 라우팅이 호출되고 제출을 누를때 맞으면 홈 이동,, 그냥 누르면 다른 걸로 바뀜 -->
         <article class="media content-section">
             <div class="media-body">
                 <div class="article-metadata">
@@ -8,9 +8,9 @@
                     {% for i in range(r_n) %}
                     <span class="badge badge-pill badge-light"> {{rd_sen[i] }}</span> 
                     {% endfor %}</a> <!-- mr = margin right 2 -->
-                    <small class="text-muted">Sentence order</small>  <!-- # 연월일 만 display -->
+                    <small class="text-muted">Sentence order</small>
                 </div>
-                <h2><a class="article-title" href="#"></a></h2>   <!-- # 이동 x  // 타이틀을 클릭하면 그 post.id로 이동-->
+                <h2><a class="article-title" href="#"></a></h2>
                 {{ form.sentence_input(class="article-content") }}
                 <p class="article-content"></p>
                 <input class="login__button login__button--submit _loginSubmitButton" type="submit" value="문장 제출">

@@ -33,7 +33,7 @@
                 {% with messages = get_flashed_messages(with_categories=true) %}
                     {% if messages %}
                         {% for category, message in messages %}
-                            <div class="alert-d alert-{{ category }}">
+                            <div class="alert-d alert-{{ category }}">    <!-- 크기 변경위해 main.css 에 새롭게 추가한 클래스(alert-d) 기존껀(alter) script에서 가져-->
                                 {{ message }}
                             </div>
                         {% endfor %}

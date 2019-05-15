@@ -24,7 +24,7 @@
                     <small class="text-muted"></small>  <!-- # 연월일 만 display -->
                 </div>
                 {% for i in range(n) %}
-                <form action="{{ url_for('study', verb=verbs[i] ) }}" method="post">
+                <form action="{{ url_for('study', verb=verbs[i] ) }}" method="post">                                  <!-- 링크 선택시의 단어를 url을 통해 전송함 변수 i 가 있기에 for loop 안 -->
                 <a class="badge badge-pill badge-light" href="/study/{{ verbs[i] }}">[  {{ verbs[i] }}  ]</a>
                 </form>
                 {% endfor %}

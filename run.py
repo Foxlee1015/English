@@ -11,15 +11,15 @@ class input_sentent_Form(Form):
     submit = SubmitField('문장 제출')
 
 def get_verbs():
-    with open("static/sentences.json", encoding='UTF8') as config_file:
+    with open("static/sentences.json", encoding='UTF8') as config_file:         # 인코딩 에러 -   encoding='UTF8' 필요
         data = json.load(config_file)
-        verbs = [key for key in data["Sentences"]]
+        verbs = [key for key in data["Sentences"]]                              # json 읽고, 그 안에 "Sentences" 안에 키값만 가져옴 즉, 동사 리스트 가져오기 Key = verbs, value = sentences of the verb
         return verbs
 
-def get_sentence(verb):      # 문장 가져오기
+def get_sentence(verb):
     with open("static/sentences.json", encoding='UTF8') as config_file:
         data = json.load(config_file)
-        return data["Sentences"][verb], data["Explanation"][verb]
+        return data["Sentences"][verb], data["Explanation"][verb]                # input = verb, output = the sentence, explanation of the verb
 
 def disorder_sentence(sen1):
     sentence = sen1
@@ -33,18 +33,11 @@ def disorder_sentence(sen1):
         n = len(sentence_words)
     return new_sentence
 
-@app.route("/")
-@app.route("/home", methods=["GET", "POST"])
-def home():
-    verbs = get_verbs()
-    n = len(verbs)
-    return render_template('home.html')
-
 def get_data(verb):
     sen1, exp1 = get_sentence(verb)
     rd_sen = disorder_sentence(sen1)
     r_n = len(rd_sen)
-    return sen1, exp1, rd_sen, r_n
+    return sen1, exp1, rd_sen, r_n           # input = verb, output = the sentence, explanation of the verb, disorder_sentence of the sentence, the length of disorder_sentence
 
 def get_random_verb():
     verbs = get_verbs()
@@ -52,6 +45,11 @@ def get_random_verb():
     r_n = random.randint(0,n-1)
     verb = verbs[r_n]
     return verb
+
+@app.route("/")
+@app.route("/home", methods=["GET", "POST"])
+def home():
+    return render_template('home.html')
 
 @app.route("/study")
 def study_random():
@@ -75,7 +73,7 @@ def study(verb):
     else:
         return render_template('study.html', form=form, rd_sen=rd_sen, r_n=r_n, exp1=exp1, verb=verb)
 
-@app.context_processor
+@app.context_processor                # verbs, n = global var
 def context_processor():
     verbs = get_verbs()
     n = len(verbs)
