@@ -51,15 +51,15 @@ def get_random_verb():
 def home():
     return render_template('home.html')
 
-@app.route("/study")
-def study_random():
+@app.route("/verb")
+def verb_random():
     verb = get_random_verb()
     form = input_sentent_Form(request.form)
     sen1, exp1, rd_sen, r_n = get_data(verb)
-    return render_template('study.html', form=form, rd_sen=rd_sen, r_n=r_n, exp1=exp1, verb=verb)
+    return render_template('verb.html', form=form, rd_sen=rd_sen, r_n=r_n, exp1=exp1, verb=verb)
 
-@app.route("/study/<string:verb>", methods=["GET", "POST"])
-def study(verb):
+@app.route("/verb/<string:verb>", methods=["GET", "POST"])
+def verb(verb):
     form = input_sentent_Form(request.form)
     sen1, exp1, rd_sen, r_n = get_data(verb)
     if request.method == "POST" and form.validate():
@@ -69,9 +69,9 @@ def study(verb):
             return redirect(url_for('home'))
         else:
             flash('Wrong')
-            return render_template('study.html', form=form, rd_sen=rd_sen, r_n=r_n, exp1=exp1, verb=verb)
+            return render_template('verb.html', form=form, rd_sen=rd_sen, r_n=r_n, exp1=exp1, verb=verb)
     else:
-        return render_template('study.html', form=form, rd_sen=rd_sen, r_n=r_n, exp1=exp1, verb=verb)
+        return render_template('verb.html', form=form, rd_sen=rd_sen, r_n=r_n, exp1=exp1, verb=verb)
 
 @app.context_processor                # verbs, n = global var
 def context_processor():

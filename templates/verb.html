@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-	<form action="{{ url_for('study', verb=verb ) }}" method="post">           <!-- submit 되면 study/동사 라우팅이 호출되고 제출을 누를때 맞으면 홈 이동,, 그냥 누르면 다른 걸로 바뀜 -->
+	<form action="{{ url_for('verb', verb=verb ) }}" method="post">           <!-- submit 되면 동사 라우팅이 호출되고 제출을 누를때 맞으면 홈 이동,, 그냥 누르면 다른 걸로 바뀜 -->
         <article class="media content-section">
             <div class="media-body">
                 <div class="article-metadata">
@@ -13,22 +13,21 @@
                 <h2><a class="article-title" href="#"></a></h2>
                 {{ form.sentence_input(class="article-content") }}
                 <p class="article-content"></p>
-                <input class="login__button login__button--submit _loginSubmitButton" type="submit" value="문장 제출">
+                <input class="login__button login__button--submit _loginSubmitButton" type="submit" value="Submit">
+                <p></p>
+                <a class="mr-2" href="/verb">Skip</a>
             </div>
         </article>
     </form>
     <article class="media content-section1">
             <div class="media-body">
                 <div class="article-metadata">
-                    <a class="mr-2" href="#">읽어보기만 해</a>
+                    <a class="mr-2" href="#">English would be easier if you know this</a>
                     <span class="badge badge-pill badge-light"> {{ verb1 }}</span>
                     <small class="text-muted">이대한</small>  <!-- # 연월일 만 display -->
                 </div>
                 <h2><a class="article-title" href="#"></a></h2>
-                <p class="article-content">{{ exp1 }}</p>
+                <p class="article-content-d">{{ exp1 }}</p>
             </div>
         </article>
-
-
-
 {% endblock content %}

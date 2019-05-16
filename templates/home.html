@@ -8,12 +8,12 @@
                     </a> <!-- mr = margin right 2 -->
                     <small class="text-muted">Home</small>
                 </div>
-                <h4><a class="article-title" href="#">1. 단어 순서 맞추기</a></h4>
+                <h6><a class="article-title" href="#">1. 단어 순서 맞추기</a></h6>
                 <p></p>
                 <p></p>
-                <h4><a class="article-title" href="#">2. 단어 설명</a></h4>
+                <h6><a class="article-title" href="#">2. 단어 설명</a></h6>
                 <p class="article-content"></p>
-                <h5><a class="article-title" href="/study">Click</a></h5>
+                <h5><a class="article-title" href="/verb">Study verbs</a></h5>
             </div>
         </article>
             <article class="media content-section1">
@@ -23,11 +23,12 @@
                     <span class="badge badge-pill badge-light"></span>
                     <small class="text-muted"></small>  <!-- # 연월일 만 display -->
                 </div>
+
+                <form action="{{ url_for('verb', verb=verbs[i] ) }}" method="post">                                  <!-- 링크 선택시의 단어를 url을 통해 전송함 변수 i 가 있기에 for loop 안 -->
                 {% for i in range(n) %}
-                <form action="{{ url_for('study', verb=verbs[i] ) }}" method="post">                                  <!-- 링크 선택시의 단어를 url을 통해 전송함 변수 i 가 있기에 for loop 안 -->
-                <a class="badge badge-pill badge-light" href="/study/{{ verbs[i] }}">[  {{ verbs[i] }}  ]</a>
-                </form>
+                <a class="badge badge-pill badge-light" href="/verb/{{ verbs[i] }}">  {{ verbs[i] }}  </a>
                 {% endfor %}
+                </form>
                 <p class="article-content"></p>
             </div>
         </article>

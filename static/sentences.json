@@ -18,28 +18,34 @@
 		"work": "Are you working this Friday?",
 		"look": "It doesn't look great.",
 		"seem": "He seems angry.",
-		"sound": "That sounds like me."
+		"sound": "That sounds like me.",
+		"marry": "Alessandro is getting married to Sara next summer.",
+		"how_easy" : "I didn't know how easy it would be",
+		"One_thing" : "Growing up the one thing that I remember most was my mother telling me 'Be nice to strangers' "
 	},
 	"Explanation" : {
-		"have": "have 란",
+		"have": "To own : I have two brothers To do one good thing, although you do other bad or silly things : *At least* you had the good sense to turn the gas off (at least 잊지 말것) To perform : Have a bath/shower/rest \n To eat : Can I have some water?",
 		"get": "get 의 다양한 용법",
 		"go": "go to home 아닌 go home 인 이유",
 		"turn": "원어민이 많이 쓰는 표현 truns out, 상황과 함께 알기",
 		"take": "take의 다양한 의미",
-		"last": "부사,형용사 그리고 동사",
+		"last": "Did you eat this pizza last? =부사 How long did the protest last for? =동사",
 		"clean": "clean 의 동의어.",
 		"fight": "fight, argue, debate, dicuss, quarrel",
-		"give": "give + 전치사.",
-		"discuss": "전치사가 필요없는 동사들은 뭐가 있을까요?",
+		"give": "give up / give away / give something to me / A last minute invitation was given to Howie / given the circumstances (문장 앞에서 많이 쓰는 표현)",
+		"discuss": "전치사가 필요없는 동사들은 뭐가 있을까요? ",
 		"ask": "ask의 구조",
 		"feel": "지각동사의 종류와 많이 쓰이는 형태",
 		"hear": "지각동사!",
 		"keep": "keep 뒤의 형용사, 분사",
 		"leave": "구조 및 전치사 활용",
 		"work": "work 명사 - 왜 관사가 필요 없나요?",
-		"look": "많이 쓰이는 형용사도 함께 기억하세요.",
+		"look": "많이 쓰이는 형용사도 함께 기억하세요. l/ look up, look for, look out, look into / If you want to find something or someone, you look for (or search for) them.",
 		"seem": "구조!",
-		"sound": "sound 뒤의 구조"
+		"sound": "sound 뒤의 구조",
+		"marry": "He’s married to Kim.\n Alessandro’s getting married to Sara next summer.\n Haruka is marrying my old school friend.",
+		"how_easy" : "how 뒤에 따라오는 형용사를 상황에 맞게 바꾸며, How easy is it -> How easy was the test? -> I don't know how easy it was. -> I dont think you know how easy it was. -> The teacher didnt say anything about the test so we can't tell how hard it is going to be",
+		"One_thing" : "The one thing that I remember from all of my intelligence briefings and my dealings with the Russians is that when you deal with the Russians, you have to deal with them from strength, not from weakness. - 문장 구조"
 	}
 }
 

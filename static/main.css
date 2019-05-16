@@ -55,6 +55,11 @@ a.article-title:hover {
 	width: 70%;
 }
 
+.article-content-d {
+  white-space: pre-line;
+	width: 90%;
+}
+
 .article-img {
   height: 65px;
   width: 65px;
