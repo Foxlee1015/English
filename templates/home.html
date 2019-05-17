@@ -26,7 +26,11 @@
 
                 <form action="{{ url_for('verb', verb=verbs[i] ) }}" method="post">                                  <!-- 링크 선택시의 단어를 url을 통해 전송함 변수 i 가 있기에 for loop 안 -->
                 {% for i in range(n) %}
-                <a class="badge badge-pill badge-light" href="/verb/{{ verbs[i] }}">  {{ verbs[i] }}  </a>
+                {% if verbs[i] in ['last', 'One_thing', 'how_easy', '문장1_시간접속사_문장2', 'degree'] %}
+                <a class="badge badge-pill badge-warning" href="/verb/{{ verbs[i] }}">  {{ verbs[i] }}  </a>
+                {% else %}
+                <a class="badge badge-pill badge-info" href="/verb/{{ verbs[i] }}">  {{ verbs[i] }}  </a>
+                {% endif %}
                 {% endfor %}
                 </form>
                 <p class="article-content"></p>

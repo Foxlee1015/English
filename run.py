@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, flash, url_for, redirect
 from wtforms import Form, SubmitField, TextAreaField, validators
 import random, json
+from random import shuffle
 
 app = Flask(__name__)
 app.secret_key = 'super secret key'
@@ -76,6 +77,7 @@ def verb(verb):
 @app.context_processor                # verbs, n = global var
 def context_processor():
     verbs = get_verbs()
+    shuffle(verbs)
     n = len(verbs)
     return dict(verbs=verbs, n=n)
 
