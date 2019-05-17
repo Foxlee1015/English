@@ -13,17 +13,40 @@
                 <h2><a class="article-title" href="#"></a></h2>
                 {{ form.sentence_input(class="article-content") }}
                 <p class="article-content"></p>
-                <input class="login__button login__button--submit _loginSubmitButton" type="submit" value="Submit">
-                <p></p>
-                <a class="mr-2" href="/verb">Skip</a>
+                <input class="btn btn-primary" type="submit" value="Submit">
+                <a class="btn btn-primary" href="/verb">Next</a>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                  Answer
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">{{ verb }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        {{ sen }}
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Okay</button>
+                        <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                      </div>
+                    </div>
+                  </div>
+                </div>
             </div>
         </article>
     </form>
     <article class="media content-section1">
             <div class="media-body">
                 <div class="article-metadata">
-                    <a class="mr-2" href="#">English would be easier if you know this</a>
-                    <span class="badge badge-pill badge-light"> {{ verb1 }}</span>
+                    <a class="mr-2" href="#">English would be easier if you know this - {{ verb }}</a>
+                    <span class="badge badge-pill badge-light"></span>
                     <small class="text-muted">이대한</small>  <!-- # 연월일 만 display -->
                 </div>
                 <h2><a class="article-title" href="#"></a></h2>

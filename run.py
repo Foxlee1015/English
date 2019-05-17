@@ -56,7 +56,7 @@ def verb_random():
     verb = get_random_verb()
     form = input_sentent_Form(request.form)
     sen1, exp1, rd_sen, r_n = get_data(verb)
-    return render_template('verb.html', form=form, rd_sen=rd_sen, r_n=r_n, exp1=exp1, verb=verb)
+    return render_template('verb.html', form=form, rd_sen=rd_sen, r_n=r_n, exp1=exp1, verb=verb, sen=sen1)
 
 @app.route("/verb/<string:verb>", methods=["GET", "POST"])
 def verb(verb):
@@ -69,9 +69,9 @@ def verb(verb):
             return redirect(url_for('home'))
         else:
             flash('Wrong')
-            return render_template('verb.html', form=form, rd_sen=rd_sen, r_n=r_n, exp1=exp1, verb=verb)
+            return render_template('verb.html', form=form, rd_sen=rd_sen, r_n=r_n, exp1=exp1, verb=verb, sen=sen1)
     else:
-        return render_template('verb.html', form=form, rd_sen=rd_sen, r_n=r_n, exp1=exp1, verb=verb)
+        return render_template('verb.html', form=form, rd_sen=rd_sen, r_n=r_n, exp1=exp1, verb=verb, sen=sen1)
 
 @app.context_processor                # verbs, n = global var
 def context_processor():
