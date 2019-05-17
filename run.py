@@ -67,10 +67,14 @@ def verb(verb):
         sentence_in = form.sentence_input.data
         if sen1 == sentence_in:
             flash('Correct')
-            return redirect(url_for('home'))
+            return redirect(url_for('verb_random'))
         else:
             flash('Wrong')
             return render_template('verb.html', form=form, rd_sen=rd_sen, r_n=r_n, exp1=exp1, verb=verb, sen=sen1)
+    elif request.method == "POST":
+        flash('Try again. (Nothing is submitted.)')
+        return render_template('verb.html', form=form, rd_sen=rd_sen, r_n=r_n, exp1=exp1, verb=verb, sen=sen1)
+
     else:
         return render_template('verb.html', form=form, rd_sen=rd_sen, r_n=r_n, exp1=exp1, verb=verb, sen=sen1)
 
