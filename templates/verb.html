@@ -45,9 +45,14 @@
     <article class="media content-section1">
             <div class="media-body">
                 <div class="article-metadata">
-                    <a class="mr-2" href="#">English would be easier if you know this - {{ verb }}</a>
+                    <a class="mr-2">English would be easier if you know this - {{ verb }}</a>
                     <span class="badge badge-pill badge-light"></span>
-                    <small class="text-muted">이대한</small>  <!-- # 연월일 만 display -->
+                    <p></p>
+                    {% if meaning == None: %}
+                    <a class="mr-2" href="https://dictionary.cambridge.org/dictionary/english/">사전</a>
+                    {% else %}
+                    <small class="text-muted">Meaning : {{ meaning }}</small>  <!-- # 연월일 만 display -->
+                    {% endif %}
                 </div>
                 <h2><a class="article-title" href="#"></a></h2>
                 <p class="article-content-d">{{ exp1 }}</p>

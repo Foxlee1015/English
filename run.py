@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, flash, url_for, redirect
 from wtforms import Form, SubmitField, TextAreaField, validators
 import random, json
 from random import shuffle
+from bs4 import BeautifulSoup
+import urllib.request
 
 app = Flask(__name__)
 app.secret_key = 'super secret key'
@@ -57,12 +59,14 @@ def verb_random():
     verb = get_random_verb()
     form = input_sentent_Form(request.form)
     sen1, exp1, rd_sen, r_n = get_data(verb)
-    return render_template('verb.html', form=form, rd_sen=rd_sen, r_n=r_n, exp1=exp1, verb=verb, sen=sen1)
+    meaning = Get_dicionary_meaing(verb)
+    return render_template('verb.html', form=form, rd_sen=rd_sen, r_n=r_n, exp1=exp1, verb=verb, sen=sen1, meaning=meaning)
 
 @app.route("/verb/<string:verb>", methods=["GET", "POST"])
 def verb(verb):
     form = input_sentent_Form(request.form)
     sen1, exp1, rd_sen, r_n = get_data(verb)
+    meaning = Get_dicionary_meaing(verb)
     if request.method == "POST" and form.validate():
         sentence_in = form.sentence_input.data
         if sen1 == sentence_in:
@@ -70,13 +74,13 @@ def verb(verb):
             return redirect(url_for('verb_random'))
         else:
             flash('Wrong')
-            return render_template('verb.html', form=form, rd_sen=rd_sen, r_n=r_n, exp1=exp1, verb=verb, sen=sen1)
+            return render_template('verb.html', form=form, rd_sen=rd_sen, r_n=r_n, exp1=exp1, verb=verb, sen=sen1, meaning=meaning)
     elif request.method == "POST":
         flash('Try again. (Nothing is submitted.)')
-        return render_template('verb.html', form=form, rd_sen=rd_sen, r_n=r_n, exp1=exp1, verb=verb, sen=sen1)
+        return render_template('verb.html', form=form, rd_sen=rd_sen, r_n=r_n, exp1=exp1, verb=verb, sen=sen1, meaning=meaning)
 
     else:
-        return render_template('verb.html', form=form, rd_sen=rd_sen, r_n=r_n, exp1=exp1, verb=verb, sen=sen1)
+        return render_template('verb.html', form=form, rd_sen=rd_sen, r_n=r_n, exp1=exp1, verb=verb, sen=sen1, meaning=meaning)
 
 @app.context_processor                # verbs, n = global var
 def context_processor():
@@ -84,6 +88,18 @@ def context_processor():
     shuffle(verbs)
     n = len(verbs)
     return dict(verbs=verbs, n=n)
+
+def Get_dicionary_meaing(verb):
+    with urllib.request.urlopen("https://dictionary.cambridge.org/dictionary/english/"+verb) as response:
+        html = response.read()
+        soup = BeautifulSoup(html, 'html.parser')
+        meaning = soup.find('b', {'class':'def'})
+        if meaning == None:
+            return None
+        else:
+            meaning = meaning.get_text()
+            print(meaning)
+            return meaning
 
 if __name__ == '__main__':
     app.run(debug=True) # , host='0.0.0.0', port=5001
