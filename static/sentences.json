@@ -22,7 +22,8 @@
 		"how_easy" : "I didn't know how easy it would be.",
 		"One_thing" : "Growing up the one thing that I remember most was my mother telling me 'Be nice to strangers.' ",
 		"문장1_시간접속사_문장2" : "I arrived at home before he did.",
-		"degree" : "To some degree"
+		"degree" : "To some degree",
+		"시간전치사" : "I have been ill since January."
 	},
 	"Explanation" : {
 		"have": "To own : I have two brothers To do one good thing, although you do other bad or silly things : *At least* you had the good sense to turn the gas off (at least 잊지 말것) To perform : Have a bath/shower/rest \n To eat : Can I have some water?",
@@ -33,7 +34,7 @@
 		"last": "Did you eat this pizza last? =부사 How long did the protest last for? =동사",
 		"fight": "fight, argue, debate, discuss, quarrel ///    heated argument/debate/discussion      pick a quarrel/fight with",
 		"give": "give up / give away / give something to me / A last minute invitation was given to Howie / given the circumstances (문장 앞에서 많이 쓰는 표현)",
-		"discuss": "전치사가 필요없는 동사들은 뭐가 있을까요? ",
+		"discuss": "전치사가 필요없는 동사들은 뭐가 있을까요?   I met your friend. (with x) /  Let's go riding. (for x) / I will call you ( to you x) / I contacted him (with x) / I answered his message (to his message x) / I will phone you tomorrow ( to you x) / The train is approaching Boston (to Boston x) / We are not allowed to enter the house (to the house x)",
 		"ask": " 질문 = Can I ask you something? / I'd like to ask him a question. / 요청 = He is going to ask her to do it. ",
 		"feel": "지각동사의 종류와 많이 쓰이는 형태",
 		"hear": "지각동사 hear smell hear see feel taste 현재시제가 더 자연스럽다. smelling looking tasting  등 액션이 있으면 현재진행 // She is tasting the soup(o), The soup is tasting good(x-no action) // The garbage smells bad(o). , The garbage is smelling bad(x- no action)",
@@ -47,7 +48,8 @@
 		"how_easy" : "how 뒤에 따라오는 형용사를 상황에 맞게 바꾸기 ex) How easy is it -> How easy was the test? -> I don't know how easy it was. -> I don't think you know how easy it was. -> The teacher didn't say anything about the test so we can't tell how hard it is going to be",
 		"One_thing" : "The one thing that I remember from all of my intelligence briefings and my dealings with the Russians is that when you deal with the Russians, you have to deal with them from strength, not from weakness. - 위 예문은 the one thing that 문장1 is that 문장2 이고,  러시아 관련된 건 the one thing that [ 문장1 ] is that when [ 문장2 ] , [문장 3 ]. 으로 결국 문장 2이 문장2+문장3 된 경우에요. ",
 		"문장1_시간접속사_문장2" : "I arrived at home 2 hours before he did. 접속사 앞에 시간을 넣어 얼마 전인지 더 구체적인 정보를 줄 수 있고, before 대신 after 도 쓸 수 있습니다",
-		"degree" : "To some degree I think that's right, but there are other factors which affect the situation. // 어느 정도, 부분적으로 생각하시고, 이와 유사하게 at some point : I usually eat a snack at some point between lunch and dinner."
+		"degree" : "To some degree I think that's right, but there are other factors which affect the situation. // 어느 정도, 부분적으로 생각하시고, 이와 유사하게 at some point : I usually eat a snack at some point between lunch and dinner.",
+		"시간전치사" : "I have been ill since two weeks(x). since 대신 for two weeks or since January. 가능 "
 	}
 }
 
