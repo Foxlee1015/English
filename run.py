@@ -9,7 +9,7 @@ app = Flask(__name__)
 app.secret_key = 'super secret key'
 app.config['SESSION_TYPE'] = 'filesystem'
 
-class input_sentent_Form(Form):
+class input_sentence_Form(Form):
     sentence_input = TextAreaField('input', [validators.Length(min=1, max=100)])
     submit = SubmitField('문장 제출')
 
@@ -56,43 +56,43 @@ def get_random_verb():
 @app.route("/")
 @app.route("/home", methods=["GET", "POST"])
 def home():
-    form = search_word_Form(request.form)
-    print('2')
-    if request.method == "POST" and form.validate():
-        word = form.word.data
+    search_form = search_word_Form(request.form)
+    if request.method == "POST" and search_form.validate():
+        word = search_form.word.data
         word_meaning = Get_meaning(word)
-        print(word_meaning)
-        return render_template('home.html', word_meaning=word_meaning, form=form)
+        return render_template('home.html', word_meaning=word_meaning, search_form=search_form)
     else:
-        return render_template('home.html', form=form)
+        return render_template('home.html', search_form=search_form)
 
 @app.route("/verb")
 def verb_random():
     verb = get_random_verb()
-    form = input_sentent_Form(request.form)
+    input_form = input_sentence_Form(request.form)
+    search_form = search_word_Form(request.form)
     sen1, exp1, rd_sen, r_n = get_data(verb)
     meaning = Get_meaning(verb)
-    return render_template('verb.html', form=form, rd_sen=rd_sen, r_n=r_n, exp1=exp1, verb=verb, sen=sen1, meaning=meaning)
+    return render_template('verb.html', input_form=input_form, search_form=search_form, rd_sen=rd_sen, r_n=r_n, exp1=exp1, verb=verb, sen=sen1, meaning=meaning)
 
 @app.route("/verb/<string:verb>", methods=["GET", "POST"])
 def verb(verb):
-    form = input_sentent_Form(request.form)
+    input_form = input_sentence_Form(request.form)
+    search_form = search_word_Form(request.form)
     sen1, exp1, rd_sen, r_n = get_data(verb)
     meaning = Get_meaning(verb)
-    if request.method == "POST" and form.validate():
-        sentence_in = form.sentence_input.data
+    if request.method == "POST" and input_form.validate():
+        sentence_in = input_form.sentence_input.data
         if sen1 == sentence_in:
             flash('Correct')
             return redirect(url_for('verb_random'))
         else:
             flash('Wrong')
-            return render_template('verb.html', form=form, rd_sen=rd_sen, r_n=r_n, exp1=exp1, verb=verb, sen=sen1, meaning=meaning)
+            return render_template('verb.html', input_form=input_form, search_form=search_form, rd_sen=rd_sen, r_n=r_n, exp1=exp1, verb=verb, sen=sen1, meaning=meaning)
     elif request.method == "POST":
         flash('Try again. (Nothing is submitted.)')
-        return render_template('verb.html', form=form, rd_sen=rd_sen, r_n=r_n, exp1=exp1, verb=verb, sen=sen1, meaning=meaning)
+        return render_template('verb.html', input_form=input_form, search_form=search_form, rd_sen=rd_sen, r_n=r_n, exp1=exp1, verb=verb, sen=sen1, meaning=meaning)
 
     else:
-        return render_template('verb.html', form=form, rd_sen=rd_sen, r_n=r_n, exp1=exp1, verb=verb, sen=sen1, meaning=meaning)
+        return render_template('verb.html', input_form=input_form, search_form=search_form, rd_sen=rd_sen, r_n=r_n, exp1=exp1, verb=verb, sen=sen1, meaning=meaning)
 
 @app.context_processor                # verbs, n = global var
 def context_processor():
