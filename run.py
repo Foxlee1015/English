@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, flash, url_for, redirect
 from wtforms import Form, SubmitField, TextAreaField, validators
-import random, json
+import random, json, pathlib
 from random import shuffle
 from bs4 import BeautifulSoup
 import urllib.request
@@ -59,14 +59,14 @@ def verb_random():
     verb = get_random_verb()
     form = input_sentent_Form(request.form)
     sen1, exp1, rd_sen, r_n = get_data(verb)
-    meaning = Get_dicionary_meaing(verb)
+    meaning = Get_meaning(verb)
     return render_template('verb.html', form=form, rd_sen=rd_sen, r_n=r_n, exp1=exp1, verb=verb, sen=sen1, meaning=meaning)
 
 @app.route("/verb/<string:verb>", methods=["GET", "POST"])
 def verb(verb):
     form = input_sentent_Form(request.form)
     sen1, exp1, rd_sen, r_n = get_data(verb)
-    meaning = Get_dicionary_meaing(verb)
+    meaning = Get_meaning(verb)
     if request.method == "POST" and form.validate():
         sentence_in = form.sentence_input.data
         if sen1 == sentence_in:
@@ -90,16 +90,34 @@ def context_processor():
     return dict(verbs=verbs, n=n)
 
 def Get_dicionary_meaing(verb):
-    with urllib.request.urlopen("https://dictionary.cambridge.org/dictionary/english/"+verb) as response:
-        html = response.read()
-        soup = BeautifulSoup(html, 'html.parser')
-        meaning = soup.find('b', {'class':'def'})
-        if meaning == None:
-            return None
-        else:
-            meaning = meaning.get_text()
-            print(meaning)
+    try:
+        with urllib.request.urlopen("https://dictionary.cambridge.org/dictionary/english/"+verb) as response:
+            html = response.read()
+            soup = BeautifulSoup(html, 'html.parser')
+            meaning = soup.find('b', {'class':'def'})
+            if meaning == None:
+                return None
+            else:
+                meaning = meaning.get_text()
+                print(meaning)
+                return meaning
+    except:
+        return None
+
+def Get_meaning(verb):
+    with open('static/meaning.json', 'r', encoding='utf-8') as f1:
+        m_data = json.load(f1)  #기존 데이터에
+        try:
+            meaning = m_data[verb]
+            print('json에서 가져옴')
             return meaning
+        except: # 크롤링 업데이트
+            meaning = Get_dicionary_meaing(verb)
+            data = {verb: meaning}
+            m_data.update(data)    # 데이터 추가 후
+            print('크롤링')
+    with open('static/meaning.json', 'w', encoding='utf-8') as f1:
+        json.dump(m_data, f1) # 저장
 
 if __name__ == '__main__':
     app.run(debug=True) # , host='0.0.0.0', port=5001
