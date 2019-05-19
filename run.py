@@ -13,6 +13,10 @@ class input_sentent_Form(Form):
     sentence_input = TextAreaField('input', [validators.Length(min=1, max=100)])
     submit = SubmitField('문장 제출')
 
+class search_word_Form(Form):
+    word = TextAreaField('words', [validators.Length(min=1, max=10)])
+    submit = SubmitField('단어 검색')
+
 def get_verbs():
     with open("static/sentences.json", encoding='UTF8') as config_file:         # 인코딩 에러 -   encoding='UTF8' 필요
         data = json.load(config_file)
@@ -52,7 +56,15 @@ def get_random_verb():
 @app.route("/")
 @app.route("/home", methods=["GET", "POST"])
 def home():
-    return render_template('home.html')
+    form = search_word_Form(request.form)
+    print('2')
+    if request.method == "POST" and form.validate():
+        word = form.word.data
+        word_meaning = Get_meaning(word)
+        print(word_meaning)
+        return render_template('home.html', word_meaning=word_meaning, form=form)
+    else:
+        return render_template('home.html', form=form)
 
 @app.route("/verb")
 def verb_random():
@@ -106,18 +118,17 @@ def Get_dicionary_meaing(verb):
 
 def Get_meaning(verb):
     with open('static/meaning.json', 'r', encoding='utf-8') as f1:
-        m_data = json.load(f1)  #기존 데이터에
+        m_data = json.load(f1)  # 기존 데이터
         try:
             meaning = m_data[verb]
-            print('json에서 가져옴')
             return meaning
         except: # 크롤링 업데이트
             meaning = Get_dicionary_meaing(verb)
             data = {verb: meaning}
-            m_data.update(data)    # 데이터 추가 후
-            print('크롤링')
-    with open('static/meaning.json', 'w', encoding='utf-8') as f1:
-        json.dump(m_data, f1) # 저장
+            m_data.update(data)    # 데이터 추가
+            with open('static/meaning.json', 'w', encoding='utf-8') as f1:
+                json.dump(m_data, f1) # 저장
+                return meaning
 
 if __name__ == '__main__':
     app.run(debug=True) # , host='0.0.0.0', port=5001

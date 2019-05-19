@@ -1,5 +1,11 @@
 {% extends "layout.html" %}
 {% block content %}
+        {% if word_meaning: %}
+        <p>Meaning of the word from Cambridge Dictionary:</p>
+        <p><strong>{{ word_meaning }}</strong></p>
+        {% else %}
+        {% endif %}
+
         <article class="media content-section">
             <div class="media-body">
                 <div class="article-metadata">
@@ -8,10 +14,13 @@
                     </a> <!-- mr = margin right 2 -->
                     <small class="text-muted">Home</small>
                 </div>
-                <h6><a class="article-title" href="#">1. 단어 순서 맞추기</a></h6>
+                <h6><a class="article-title">1. 단어 검색</a></h6>
                 <p></p>
                 <p></p>
-                <h6><a class="article-title" href="#">2. 단어 설명</a></h6>
+                <h6><a class="article-title" href="/verb">2. 단어 순서 맞추기</a></h6>
+                <p></p>
+                <p></p>
+                <h6><a class="article-title" href="#">3. 단어 설명</a></h6>
                 <p class="article-content"></p>
                 <h5><a class="article-title" href="/verb">Study verbs</a></h5>
             </div>
