@@ -1,13 +1,34 @@
-from flask import Flask, render_template, request, flash, url_for, redirect
+from flask import Flask, render_template, request, flash, url_for, redirect, jsonify
 from wtforms import Form, SubmitField, TextAreaField, validators
 import random, json, pathlib
 from random import shuffle
 from bs4 import BeautifulSoup
 import urllib.request
+from elasticsearch import Elasticsearch
+from datetime import datetime
+from flask_restful import Resource, Api, reqparse
 
 app = Flask(__name__)
 app.secret_key = 'super secret key'
 app.config['SESSION_TYPE'] = 'filesystem'
+api = Api(app)
+
+class RegistUser(Resource):
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('verb', type=str)
+        #parser.add_argument('email', type=str)
+        args = parser.parse_args()
+        verb = args['verb']
+        #email = args['email']
+
+        with open("static/sentences.json", encoding='UTF8') as config_file:
+            data = json.load(config_file)
+            sentence, explanation = data["Sentences"][verb], data["Explanation"][verb]
+            meaning = Get_meaning(verb)
+        return {'verb': verb, "meaning" : meaning, "quiz" : sentence, "explanation" : explanation } #, 'email': email}
+
+api.add_resource(RegistUser, '/content')
 
 class input_sentence_Form(Form):
     sentence_input = TextAreaField('input', [validators.Length(min=1, max=100)])
