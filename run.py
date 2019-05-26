@@ -13,22 +13,41 @@ app.secret_key = 'super secret key'
 app.config['SESSION_TYPE'] = 'filesystem'
 api = Api(app)
 
-class RegistUser(Resource):
-    def post(self):
+class Verb_list(Resource):
+    def get(self):
+        with open("static/sentences.json", encoding='UTF8') as f1:
+            data1 = json.load(f1)
+        with open('static/meaning.json', encoding='utf-8') as f2:
+            data2 = json.load(f2)
+        data1.update(data2)
+        return data1
+
+class Verb_search(Resource):
+    def get(self,verb):
+        try:
+            sentence, explanation = get_sentence(verb)
+            meaning = Get_meaning(verb)
+            return {'verb': verb, "meaning": meaning, "quiz": sentence, "explanation": explanation } #, 'email': email}
+        except: # 단어가 저장되어 있지 않은 경우
+            meaning = Get_meaning(verb)
+            return {'verb': verb, "meaning": meaning}
+    #POST 방식 - 클라이언트가 단어 전송
+    def post(self, verb):
         parser = reqparse.RequestParser()
         parser.add_argument('verb', type=str)
-        #parser.add_argument('email', type=str)
-        args = parser.parse_args()
+        args = parser.parse_args('verb')
         verb = args['verb']
-        #email = args['email']
-
-        with open("static/sentences.json", encoding='UTF8') as config_file:
-            data = json.load(config_file)
-            sentence, explanation = data["Sentences"][verb], data["Explanation"][verb]
+        try:
+            sentence, explanation = get_sentence(verb)
             meaning = Get_meaning(verb)
-        return {'verb': verb, "meaning" : meaning, "quiz" : sentence, "explanation" : explanation } #, 'email': email}
+            return {'verb': verb, "meaning": meaning, "quiz": sentence, "explanation": explanation } #, 'email': email}
+        except: # 단어가 저장되어 있지 않은 경우
+            meaning = Get_meaning(verb)
+            return {'verb': verb, "meaning": meaning}
 
-api.add_resource(RegistUser, '/content')
+api.add_resource(Verb_list, '/verb_list')
+api.add_resource(Verb_search, '/verb_search/<string:verb>')
+
 
 class input_sentence_Form(Form):
     sentence_input = TextAreaField('input', [validators.Length(min=1, max=100)])
