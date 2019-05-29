@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-	<form action="{{ url_for('verb', verb=verb ) }}" method="post">           <!-- submit 되면 동사 라우팅이 호출되고 제출을 누를때 맞으면 홈 이동,, 그냥 누르면 다른 걸로 바뀜 -->
+	<form action="{{ url_for('verb.verb', verb=verb ) }}" method="post">           <!-- submit 되면 동사 라우팅이 호출되고 제출을 누를때 맞으면 홈 이동,, 그냥 누르면 다른 걸로 바뀜 -->
         <article class="media content-section">
             <div class="media-body">
                 <div class="article-metadata">
