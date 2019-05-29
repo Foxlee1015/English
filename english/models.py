@@ -85,8 +85,6 @@ def get_random_verb():
     verb = verbs[r_n]
     return verb
 
-
-
 def Get_dicionary_meaing(verb):
     try:
         with urllib.request.urlopen("https://dictionary.cambridge.org/dictionary/english/"+verb) as response:
@@ -117,7 +115,7 @@ def Get_meaning(verb):
                 json.dump(m_data, f1) # 저장
                 return meaning
 
-
+"""
 @models.context_processor                # verbs, n = global var
 def context_processor():
     verbs = get_verbs()
@@ -125,3 +123,4 @@ def context_processor():
     n = len(verbs)
     return dict(verbs=verbs, n=n)
 
+"""

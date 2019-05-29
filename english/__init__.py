@@ -1,5 +1,8 @@
 from flask import Flask
 from english.config import Config
+from flask_restful import Api
+from random import shuffle
+from english.models import get_verbs
 
 def create_app(config_class=Config):
     app = Flask(__name__)
@@ -18,4 +21,12 @@ def create_app(config_class=Config):
     app.register_blueprint(audio_b)
     app.register_blueprint(models)
 
+    @app.context_processor  # verbs, n = global var
+    def context_processor():
+        verbs = get_verbs()
+        shuffle(verbs)
+        n = len(verbs)
+        return dict(verbs=verbs, n=n)
+
     return app
+

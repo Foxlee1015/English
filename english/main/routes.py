@@ -3,7 +3,7 @@ from wtforms import Form, validators
 from english.verb.form import search_word_Form
 from english.audio.form import AudioForm
 from english.models import Get_meaning, get_verbs
-from random import shuffle
+#from random import shuffle
 
 main = Blueprint('main', __name__)
 
@@ -17,8 +17,8 @@ def home():
         word_meaning = Get_meaning(word)
         return render_template('home.html', word_meaning=word_meaning, search_form=search_form, audio_form=audio_form)
     else:
-        verbs = get_verbs()
-        shuffle(verbs)
-        n = len(verbs)
-        return render_template('home.html', search_form=search_form, audio_form=audio_form, verbs=verbs, n=n)
+        #verbs = get_verbs()
+        #shuffle(verbs)
+        #n = len(verbs)
+        return render_template('home.html', search_form=search_form, audio_form=audio_form) #, verbs=verbs, n=n)
 
