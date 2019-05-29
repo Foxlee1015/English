@@ -1,17 +1,28 @@
-from flask import Flask, render_template, request, flash, url_for, redirect, jsonify
-from wtforms import Form, SubmitField, TextAreaField, validators
-import random, json, pathlib
+import os
+from flask import Flask, render_template, request, flash, url_for, redirect
+from wtforms import Form, SubmitField, TextAreaField, validators, FileField
+import random, json
 from random import shuffle
 from bs4 import BeautifulSoup
 import urllib.request
-from elasticsearch import Elasticsearch
-from datetime import datetime
 from flask_restful import Resource, Api, reqparse
+from flask_wtf.file import FileAllowed  # FileRequired
+from werkzeug.utils import secure_filename
+
 
 app = Flask(__name__)
 app.secret_key = 'super secret key'
 app.config['SESSION_TYPE'] = 'filesystem'
 api = Api(app)
+
+
+UPLOAD_FOLDER = 'static/'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+class AudioForm(Form):
+    audio1 = TextAreaField('What audio', [validators.data_required(), validators.Length(min=1, max=20)])
+    audio2 = FileField('Audio file', validators=[FileAllowed(['mp3', 'mp4', 'wma'])])
+    submit = SubmitField('okay')
 
 class Verb_list(Resource):
     def get(self):
@@ -47,7 +58,6 @@ class Verb_search(Resource):
 
 api.add_resource(Verb_list, '/verb_list')
 api.add_resource(Verb_search, '/verb_search/<string:verb>')
-
 
 class input_sentence_Form(Form):
     sentence_input = TextAreaField('input', [validators.Length(min=1, max=100)])
@@ -96,13 +106,32 @@ def get_random_verb():
 @app.route("/")
 @app.route("/home", methods=["GET", "POST"])
 def home():
+    audio_form = AudioForm(request.form)
     search_form = search_word_Form(request.form)
     if request.method == "POST" and search_form.validate():
         word = search_form.word.data
         word_meaning = Get_meaning(word)
-        return render_template('home.html', word_meaning=word_meaning, search_form=search_form)
+        return render_template('home.html', word_meaning=word_meaning, search_form=search_form, audio_form=audio_form)
     else:
-        return render_template('home.html', search_form=search_form)
+        return render_template('home.html', search_form=search_form, audio_form=audio_form)
+
+@app.route("/audio/register", methods=["GET", "POST"])
+def audio():
+    audio_form = AudioForm(request.form)
+    if request.method == "POST" and audio_form.validate():
+        print('성공')
+        file = request.files['file']  # post 된 파일 정보 가져옴
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        return render_template('audio.html', audio_form=audio_form)
+    else:
+        return render_template('audio.html', audio_form=audio_form)
+
+@app.route("/audio/list", methods=["GET", "POST"])
+def audio_list():
+    return render_template('audio_list.html')
+
+
 
 @app.route("/verb")
 def verb_random():
