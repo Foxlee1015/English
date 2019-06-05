@@ -14,12 +14,14 @@ def create_app(config_class=Config):
     from english.main.routes import main
     from english.verb.routes import verb_b
     from english.audio.routes import audio_b
+    from english.errors.handler import errors
     from english.models import models
 
     app.register_blueprint(main)
     app.register_blueprint(verb_b)
     app.register_blueprint(audio_b)
     app.register_blueprint(models)
+    app.register_blueprint(errors)
 
     @app.context_processor  # verbs, n = global var
     def context_processor():
